@@ -1,5 +1,6 @@
 ﻿namespace Map.Core.Models;
 
+
 public readonly struct MapArea
 {
     public readonly int X;
