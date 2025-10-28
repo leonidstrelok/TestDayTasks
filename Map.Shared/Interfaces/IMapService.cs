@@ -1,7 +1,7 @@
 ﻿using MagicOnion;
-using Map.Network.Contracts;
+using Map.Shared.Models;
 
-namespace Map.Network.Interfaces;
+namespace Map.Shared.Interfaces;
 
 public interface IMapService : IService<IMapService>
 {

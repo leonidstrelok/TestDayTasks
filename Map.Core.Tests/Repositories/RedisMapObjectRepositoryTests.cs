@@ -3,7 +3,6 @@ using Map.Core.Models;
 using Map.Core.Repositories;
 using Moq;
 using StackExchange.Redis;
-using Xunit;
 
 namespace Map.Core.Tests.Repositories;
 

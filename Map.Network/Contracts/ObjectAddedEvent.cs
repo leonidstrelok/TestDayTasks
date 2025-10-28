@@ -1,4 +1,5 @@
-﻿using MemoryPack;
+﻿using Map.Shared.Models;
+using MemoryPack;
 
 namespace Map.Network.Contracts;
 

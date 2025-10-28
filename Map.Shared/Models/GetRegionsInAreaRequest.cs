@@ -1,9 +1,9 @@
 ﻿using MemoryPack;
 
-namespace Map.Network.Contracts;
+namespace Map.Shared.Models;
 
 [MemoryPackable]
-public partial class GetObjectsInAreaRequest
+public partial class GetRegionsInAreaRequest
 {
     public int X1 { get; set; }
     public int Y1 { get; set; }
