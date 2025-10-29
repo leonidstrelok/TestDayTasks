@@ -1,12 +1,10 @@
-﻿using MessagePack;
+﻿using MemoryPack;
 
 namespace Map.Network.Contracts;
 
-[MessagePackObject]
+[MemoryPackable]
 public partial class ObjectDeletedEvent
 {
-    [Key(0)]
     public string ObjectId { get; set; }
-    [Key(1)]
     public DateTime Timestamp { get; set; }
 }
