@@ -1,11 +1,14 @@
-﻿namespace Map.Core.Models;
+﻿using MemoryPack;
 
-public class Region
+namespace Map.Core.Models;
+
+[MemoryPackable]
+public partial class Region
 {
     public ushort Id { get; set; }
     public string Name { get; set; }
     public int TileCount { get; set; }
         
     public string Description { get; set; }
-    public Dictionary<string, object> Metadata { get; set; } = new();
+    public Dictionary<string, string> Metadata { get; set; } = new();
 }

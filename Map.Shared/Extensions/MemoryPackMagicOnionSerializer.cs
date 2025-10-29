@@ -1,37 +1,58 @@
 ﻿using System.Buffers;
-using System.Reflection;
-using Grpc.Core;
 using MagicOnion.Serialization;
 using MemoryPack;
 
 namespace Map.Shared.Extensions;
 
-public class MemoryPackMagicOnionSerializer : IMagicOnionSerializer, IMagicOnionSerializerProvider
+public class MemoryPackMagicOnionSerializer : IMagicOnionSerializer
 {
     public T Deserialize<T>(byte[] bytes)
     {
-        return MemoryPackSerializer.Deserialize<T>(bytes) 
-               ?? throw new InvalidOperationException("Deserialized value is null");
+        try
+        {
+            return MemoryPackSerializer.Deserialize<T>(bytes)
+                   ?? throw new InvalidOperationException("Deserialized value is null");
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException($"Failed to deserialize type {typeof(T)}", ex);
+        }
     }
 
     public T Deserialize<T>(in ReadOnlySequence<byte> bytes)
     {
-        return MemoryPackSerializer.Deserialize<T>(bytes) 
-               ?? throw new InvalidOperationException("Deserialized value is null");
+        try
+        {
+            return MemoryPackSerializer.Deserialize<T>(bytes)
+                   ?? throw new InvalidOperationException("Deserialized value is null");
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException($"Failed to deserialize type {typeof(T)}", ex);
+        }
     }
 
     public byte[] Serialize<T>(in T value)
     {
-        return MemoryPackSerializer.Serialize(value);
+        try
+        {
+            return MemoryPackSerializer.Serialize(value);
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException($"Failed to serialize type {typeof(T)}", ex);
+        }
     }
 
     public void Serialize<T>(IBufferWriter<byte> writer, in T value)
     {
-        MemoryPackSerializer.Serialize(writer, value);
-    }
-
-    public IMagicOnionSerializer Create(MethodType methodType, MethodInfo? methodInfo)
-    {
-        throw new NotImplementedException();
+        try
+        {
+            MemoryPackSerializer.Serialize(writer, value);
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException($"Failed to serialize type {typeof(T)}", ex);
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 using Grpc.Net.Client;
 using MagicOnion.Client;
+using Map.Shared.Extensions;
 using Map.Shared.Interfaces;
 using Map.Shared.Models;
 
@@ -9,7 +10,7 @@ Console.WriteLine("Hello, World!");
 
 var channel = GrpcChannel.ForAddress("http://localhost:5000");
 
-var mapClient = MagicOnionClient.Create<IMapService>(channel);
+var mapClient = MagicOnionClient.Create<IMapService>(channel, new MemoryPackMagicOnionSerializerProvider());
 
 var objRequest = new GetObjectsInAreaRequest
 {

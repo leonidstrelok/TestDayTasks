@@ -4,13 +4,17 @@ using Map.Core.Repositories;
 using Map.Core.Services;
 using Map.Network.Events;
 using Map.Network.Seeds;
+using Map.Shared.Extensions;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
-builder.Services.AddMagicOnion();
+builder.Services.AddMagicOnion(options =>
+{
+    options.MessageSerializer = new MemoryPackMagicOnionSerializerProvider();
+});
 
 // Регистрируем зависимости
 builder.Services.AddSingleton<SurfaceLayer>(sp =>
