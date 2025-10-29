@@ -1,8 +1,8 @@
 ﻿using MagicOnion.Server.Hubs;
 using Map.Core.Layers;
-using Map.Network.Contracts;
 using Map.Network.Events;
-using Map.Network.Interfaces;
+using Map.Shared.Events;
+using Map.Shared.Interfaces;
 
 namespace Map.Network.Services;
 
@@ -10,7 +10,8 @@ public class MapStreamingHub : StreamingHubBase<IMapStreamingHub, IMapStreamingH
 {
     private readonly MapObjectLayer _objectLayer;
     private readonly MapEventBroadcaster _broadcaster;
-    private bool _isSubscribed = false;
+    private IGroup<IMapStreamingHubReceiver>? _group;
+    private bool _isSubscribed;
 
     public MapStreamingHub(MapObjectLayer objectLayer, MapEventBroadcaster broadcaster)
     {
@@ -23,6 +24,7 @@ public class MapStreamingHub : StreamingHubBase<IMapStreamingHub, IMapStreamingH
         if (_isSubscribed)
             return;
 
+        _group = await Group.AddAsync("map-updates");
         _isSubscribed = true;
         await _broadcaster.SubscribeAsync(this);
     }
@@ -33,6 +35,7 @@ public class MapStreamingHub : StreamingHubBase<IMapStreamingHub, IMapStreamingH
             return;
 
         _isSubscribed = false;
+        await _group.RemoveAsync(Context);
         await _broadcaster.UnsubscribeAsync(this);
     }
 
@@ -40,26 +43,24 @@ public class MapStreamingHub : StreamingHubBase<IMapStreamingHub, IMapStreamingH
     {
         if (_isSubscribed)
         {
+            await _group.RemoveAsync(Context);
             await _broadcaster.UnsubscribeAsync(this);
         }
     }
 
-    // Методы для отправки событий клиенту (вызываются из Broadcaster)
-    internal void BroadcastObjectAdded(ObjectAddedEvent evt)
+    // Теперь рассылка через Clients
+    public void BroadcastObjectAdded(ObjectAddedEvent evt)
     {
-        // TODO: Implement proper MagicOnion broadcast when client interface is defined
-        // For now, this method is called by the broadcaster
+        _group.All.OnObjectAdded(evt);
     }
 
-    internal void BroadcastObjectUpdated(ObjectUpdatedEvent evt)
+    public void BroadcastObjectUpdated(ObjectUpdatedEvent evt)
     {
-        // TODO: Implement proper MagicOnion broadcast when client interface is defined
-        // For now, this method is called by the broadcaster
+        _group.All.OnObjectUpdated(evt);
     }
 
-    internal void BroadcastObjectDeleted(ObjectDeletedEvent evt)
+    public void BroadcastObjectDeleted(ObjectDeletedEvent evt)
     {
-        // TODO: Implement proper MagicOnion broadcast when client interface is defined
-        // For now, this method is called by the broadcaster
+        _group.All.OnObjectDeleted(evt);
     }
 }

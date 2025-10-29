@@ -1,4 +1,4 @@
-﻿using Map.Network.Contracts;
+﻿using Map.Shared.Events;
 using Map.Shared.Models;
 using MemoryPack;
 

@@ -1,6 +1,6 @@
-﻿using Map.Network.Contracts;
+﻿using Map.Shared.Events;
 
-namespace Map.Network.Interfaces;
+namespace Map.Shared.Interfaces;
 
 public interface IMapStreamingHubReceiver
 {

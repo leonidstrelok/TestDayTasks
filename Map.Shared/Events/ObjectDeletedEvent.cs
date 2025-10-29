@@ -1,6 +1,6 @@
 ﻿using MemoryPack;
 
-namespace Map.Network.Contracts;
+namespace Map.Shared.Events;
 
 [MemoryPackable]
 public partial class ObjectDeletedEvent

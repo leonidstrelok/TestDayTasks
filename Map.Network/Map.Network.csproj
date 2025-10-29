@@ -15,4 +15,9 @@
       <ProjectReference Include="..\Map.Shared\Map.Shared.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Contracts\" />
+      <Folder Include="Interfaces\" />
+    </ItemGroup>
+
 </Project>

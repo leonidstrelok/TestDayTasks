@@ -1,10 +1,10 @@
 ﻿using Map.Shared.Models;
 using MemoryPack;
 
-namespace Map.Network.Contracts;
+namespace Map.Shared.Events;
 
 [MemoryPackable]
-public partial class ObjectUpdatedEvent
+public partial class ObjectAddedEvent
 {
     public ObjectDto Object { get; set; }
     public DateTime Timestamp { get; set; }

@@ -1,6 +1,6 @@
 ﻿using MagicOnion;
 
-namespace Map.Network.Interfaces;
+namespace Map.Shared.Interfaces;
 
 public interface IMapStreamingHub : IStreamingHub<IMapStreamingHub, IMapStreamingHubReceiver>
 {

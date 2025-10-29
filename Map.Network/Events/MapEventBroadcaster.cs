@@ -1,8 +1,8 @@
 ﻿using Map.Core.Events;
 using Map.Core.Layers;
 using Map.Core.Models;
-using Map.Network.Contracts;
 using Map.Network.Services;
+using Map.Shared.Events;
 using Map.Shared.Models;
 
 namespace Map.Network.Events;

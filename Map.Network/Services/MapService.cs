@@ -51,7 +51,7 @@ public class MapService : ServiceBase<IMapService>, IMapService
                 Type = obj.Type
             });
         }
-
+        
         return response;
     }
 
